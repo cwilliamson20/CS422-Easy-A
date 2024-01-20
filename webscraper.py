@@ -8,6 +8,7 @@ import re
 
 # a list of all urls pointing to the faculty page for the Natural Sciences departments
 # each entry is a tuple consisting of (Department Name, url)
+# Note: General Science does not contain faculty names at the time of writing, but is included for consistency and in case that changes in the future
 urls = [
     ("Biology", "https://web.archive.org/web/20160321182426/http://catalog.uoregon.edu:80/arts_sciences/biology/"),
     ("Chemistry and Biochemistry", "https://web.archive.org/web/20161003083410/http://catalog.uoregon.edu/arts_sciences/chemistry/"), 
@@ -25,10 +26,14 @@ urls = [
 # it will be filled with tuples of the form (Instructor Name, Department Name)
 faculty_names = []
 
+# track how many names are added for each department
+scraped_names_stats = {}
+
 # use a loop to scrape each page for faculty names
 for department_index in range(0, len(urls)):
     url = urls[department_index][1]
     data = requests.get(url)    # this uses the requests module to get the HTML code located at the url
+    scraped_names_stats[urls[department_index][0]] = 0  # set intial found name count to 0 for each department
 
     # insert the html data into the BeautifulSoup parser
     soup = BeautifulSoup(data.text, "html.parser")
@@ -47,3 +52,5 @@ for department_index in range(0, len(urls)):
             # this also trims the comma left from the regex match using Python string manipulation
             # the second element in the tuple is the department name for use in other parts of the application
             faculty_names.append((name.group()[:-1], urls[department_index][0]))
+            # add one to the found name count for this department
+            scraped_names_stats[urls[department_index][0]] += 1
