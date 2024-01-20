@@ -3,6 +3,30 @@
 # Human Physiology, Mathematics, Neuroscience, Physics, and Psychology
 
 import requests    #TODO: list what packages the admin needs to install before installing EasyA
-url = 'https://web.archive.org/web/20141107201402/http://catalog.uoregon.edu/arts_sciences/biology/#facultytext'
-data = requests.get(url)
-print(data.text)
+from bs4 import BeautifulSoup
+import re
+# this is the url for March 2016 faculty data for the Biology department
+url = 'https://web.archive.org/web/20160321182426/http://catalog.uoregon.edu:80/arts_sciences/biology/'
+data = requests.get(url)    # this uses the requests module to get the HTML code located at the url
+
+# insert the html data into the BeautifulSoup parser
+soup = BeautifulSoup(data.text, 'html.parser')
+
+# collect all elements with the class name facultylist
+scraped_faculty = soup.findAll('p', class_='facultylist')
+
+# use a regex search to get the name, which is always followed by a comma and is at the beginning of each object
+# some facultyname objects don't actually contain names, but in these few instances they don't contain a comma and won't match
+faculty_names = []
+for fac in scraped_faculty:
+    # name is a Match object from the regex module
+    name = re.search("^[^,]*,", fac.text)
+
+    if name:    # don't add non-matches to the list
+        # add the name in text found in the match to the list of names found so far
+        # this also trims the comma left from the regex match using Python string manipulation
+        faculty_names.append(name.group()[:-1])
+
+
+
+
