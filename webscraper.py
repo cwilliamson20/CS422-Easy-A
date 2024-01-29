@@ -5,6 +5,7 @@
 import requests    #TODO: list what packages the admin needs to install before installing EasyA
 from bs4 import BeautifulSoup
 import re
+from discresolution import begin_resolution #import begin_resolution from discresolution.py to be able to use the discrepancy resolution process
 
 # a list of all urls pointing to the faculty page for the Natural Sciences departments
 # each entry is a tuple consisting of (Department Name, url)
@@ -54,3 +55,7 @@ for department_index in range(0, len(urls)):
             faculty_names.append((name.group()[:-1], urls[department_index][0]))
             # add one to the found name count for this department
             scraped_names_stats[urls[department_index][0]] += 1
+
+
+"""------------------------BEGIN DISCREPANCY RESOLUTION------------------------"""
+begin_resolution(faculty_names) # call resolution function from discresolution.py
