@@ -1,6 +1,21 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
+import user_create_graph
+
+# TODO:
+"""
+- add default selections for radio buttons
+- disable class code button for certain graph modes / when entire department options selected 
+- make radio buttons / certain options required - disable enter button until these are selected
+
+- call gen_data function from gen_data.py
+
+- ADD OPTION FOR ALL INSTRUCTORS VS REG FACULTY 
+- ADD CHECK BOX FOR SHOW CLASS COUNT
+
+"""
+
 
 class EasyAUserInterface:
     def __init__(self, root):
@@ -36,43 +51,40 @@ class EasyAUserInterface:
 
         Label(self.user_frame, text="Graph Type:").grid(row=0, column=0, padx=(0, 20), pady=(0, 10))
         # Add radio buttons
-        var = IntVar()
-        R1 = Radiobutton(self.user_frame, text="Single Class", variable=var, value=1)
-        R1.grid(row=2, column=0, sticky=W, padx=(0, 20))
-        R2 = Radiobutton(self.user_frame, text="Single Department", variable=var, value=2)
-        R2.grid(row=3, column=0, sticky=W, padx=(0, 20))
-        R3 = Radiobutton(self.user_frame, text="Single Department Level", variable=var, value=3)
-        R3.grid(row=4, column=0, sticky=W, padx=(0, 20))
+        self.var = IntVar()
+        self.R1 = Radiobutton(self.user_frame, text="Single Class", variable=self.var, value=1)
+        self.R1.grid(row=2, column=0, sticky=W, padx=(0, 20))
+        self.R2 = Radiobutton(self.user_frame, text="Single Department", variable=self.var, value=2)
+        self.R2.grid(row=3, column=0, sticky=W, padx=(0, 20))
+        self.R3 = Radiobutton(self.user_frame, text="Single Department Level", variable=self.var, value=3)
+        self.R3.grid(row=4, column=0, sticky=W, padx=(0, 20))
 
         # Department Level drop-down list
         Label(self.user_frame, text="Department Level:").grid(row=5, column=0, sticky=W, pady=(10, 0))
-        class_level_box = ttk.Combobox(
+        self.class_level_box = ttk.Combobox(
             self.user_frame,
             state="readonly",
             values=["100", "200", "300", "400"]
         )
-        class_level_box.set("100")  # Set default value to "100"
-        class_level_box.grid(row=6, column=0, sticky=W)
+        self.class_level_box.grid(row=6, column=0, sticky=W)
 
         # Year drop-down list
         Label(self.user_frame, text="Year:").grid(row=7, column=0, sticky=W, pady=(10, 0))
-        year_box = ttk.Combobox(
+        self.year_box = ttk.Combobox(
             self.user_frame,
             state="readonly",
-            values=["2013", "2014", "2015", "2016"]
+            values=["All", "2013", "2014", "2015", "2016"]
         )
-        year_box.set("2013")  # Set default value to "100"
-        year_box.grid(row=8, column=0, sticky=W)
+        self.year_box.grid(row=8, column=0, sticky=W)
 
         # Subject Code drop-down list
         Label(self.user_frame, text="Course Code:").grid(row=9, column=0, sticky=W, pady=(10, 0))
-        subject_box = ttk.Combobox(
+        self.subject_box = ttk.Combobox(
             self.user_frame,
             state="readonly",
-            values=["CS", "etc", "etc", "etc"] # TODO: ADD CORRECT COURSE CODES
+            values=["BI", "CH", "CIS", "GEOL", "HPHY", "MATH", "PHYS", "PSY"] # TODO: ADD CORRECT COURSE CODES for natural sciences
         )
-        subject_box.set("todo")  # Set default value to "100"
-        subject_box.grid(row=10, column=0, sticky=W)
+        self.subject_box.grid(row=10, column=0, sticky=W)
 
         # Course Number text box
         Label(self.user_frame, text="Course Number:").grid(row=11, column=0, sticky=W, pady=(10, 0))
@@ -84,24 +96,88 @@ class EasyAUserInterface:
         style.configure('TEntry', borderwidth=2, relief="solid")
 
         # Create Entry / text box with visible border
-        course_num_entry = ttk.Entry(self.user_frame, style='TEntry')
-        course_num_entry.grid(row=12, column=0, sticky=W, pady=(0, 10))
+        self.course_num_entry = ttk.Entry(self.user_frame, style='TEntry')
+        self.course_num_entry.grid(row=12, column=0, sticky=W, pady=(0, 10))
 
         # Column 2:
         Label(self.user_frame, text="Display Options:").grid(row=0, column=1, sticky=W, pady=(0, 10))
         # Add check boxes
-        var1 = IntVar()
-        var2 = IntVar()
-        var3 = IntVar()
-        c1 = Checkbutton(self.user_frame, text='Show % As', variable=var1, onvalue=1, offvalue=0)
+        self.var1 = IntVar()
+        self.var2 = IntVar()
+        self.var3 = IntVar()
+        c1 = Checkbutton(self.user_frame, text='Show % As', variable=self.var1, onvalue=1, offvalue=0)
         c1.grid(row=2, column=1, sticky=W)
-        c2 = Checkbutton(self.user_frame, text='Show Only Regular Faculty', variable=var2, onvalue=1, offvalue=0)
+        c2 = Checkbutton(self.user_frame, text='Show Only Regular Faculty', variable=self.var2, onvalue=1, offvalue=0)
         c2.grid(row=3, column=1, sticky=W)
-        c3 = Checkbutton(self.user_frame, text='Show Class Count on X-Axis', variable=var3, onvalue=1, offvalue=0)
+        c3 = Checkbutton(self.user_frame, text='Show Class Count on X-Axis', variable=self.var3, onvalue=1, offvalue=0)
         c3.grid(row=4, column=1, sticky=W)
 
+        # EasyA vs JustPass: radio buttons
+        Label(self.user_frame, text="Mode: EasyA vs JustPass").grid(row=5, column=1, sticky=W, pady=(10, 0))
+        self.var_grade_mode = IntVar()
+        self.r_easya = Radiobutton(self.user_frame, text="EasyA: Show Percent As", variable=self.var_grade_mode, value=1)
+        self.r_easya.grid(row=6, column=1, sticky=W, padx=(0, 20))
+        self.r_justpass = Radiobutton(self.user_frame, text="JustPass: Show Percent Ds or Fs", variable=self.var_grade_mode, value=2)
+        self.r_justpass.grid(row=7, column=1, sticky=W, padx=(0, 20))
+
+        self.var_fac = IntVar()
+        self.r_all_fac = Radiobutton(self.user_frame, text="Display All Faculty", variable=self.var_fac, value=1)
+        self.r_all_fac.grid(row=8, column=1, sticky=W, padx=(0, 20), pady=(10, 0))
+        self.r_reg_fac = Radiobutton(self.user_frame, text="Display Regular Faculty", variable=self.var_fac, value=2)
+        self.r_reg_fac.grid(row=9, column=1, sticky=W, padx=(0, 20))
+
+
+        # Create a label to display selected values
+        #self.selected_values_label = Label(self.user_frame, text="")
+        #self.selected_values_label.grid(row=13, column=0, columnspan=2, pady=(10, 0))
+
         # Enter button
-        Button(self.user_frame, text="Enter", command=self.enter_graph).grid(row=5, column=1, sticky=W, pady=(10, 0))
+        Button(self.user_frame, text="Enter", command=self.enter_graph).grid(row=10, column=1, sticky=W, pady=(10, 0))
+
+        # SET DEFAULT VALUES
+        # Radio buttons:
+        self.var.set(1)  # Single Class
+        self.var_grade_mode.set(1)  # EasyA: Show Percent As
+        self.var_fac.set(1)  # Display All Faculty
+
+        # Box selections:
+        self.class_level_box.set("100")  # Set default value for department level
+        self.year_box.set("All")  # Set default value for year
+        self.subject_box.set("BI")  # Set default value for subject code
+
+    def enter_graph(self):
+        user_create_graph.get_graph_data()
+
+    def create_dict(self):
+        # Retrieve selected values from radio buttons, check buttons, and comboboxes
+
+        graph_type = self.var
+        grade_mode = self.var_grade_mode
+        fac_mode = self.var_fac
+        department_level = self.class_level_box.get()
+        year = self.year_box.get()
+        subject_code = self.subject_box.get()
+        course_number = self.course_num_entry.get()
+        show_percent = self.var1.get()
+        show_regular_faculty = self.var2.get()
+        show_class_count = self.var3.get()
+
+        # Create dictionary with the selected values
+        data_dict = {
+            "graph_type": graph_type,
+            "grade_mode": grade_mode,
+            "fac_mode": fac_mode,
+            "department_level": department_level,
+            "year": year,
+            "subject_code": subject_code,
+            "course_number": course_number,
+            "show_percent": show_percent,
+            "show_regular_faculty": show_regular_faculty,
+            "show_class_count": show_class_count
+        }
+
+        return data_dict
+
 
     def create_supervisor_page(self):
 
@@ -116,8 +192,8 @@ class EasyAUserInterface:
         self.hide_frames()
         self.home_frame.pack()
 
-    def enter_graph(self):
-        Label(self.user_frame, text="Graph data entered").grid(row=6, column=1, sticky=W)
+    #def enter_graph(self):
+        #Label(self.user_frame, text="Graph data entered").grid(row=6, column=1, sticky=W)
 
     def show_user_page(self):
         self.hide_frames()
