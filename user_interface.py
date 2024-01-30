@@ -3,17 +3,13 @@ from tkinter import filedialog
 from tkinter import ttk
 import user_create_graph
 
-# TODO:
 """
-- add default selections for radio buttons
-- disable class code button for certain graph modes / when entire department options selected 
-- make radio buttons / certain options required - disable enter button until these are selected
+For user_create_graph:
+- send course_mode as parameter of basicgraph
+basicgraph(output_dict, course_mode, options_dict)
 
-- call gen_data function from gen_data.py
-
-- ADD OPTION FOR ALL INSTRUCTORS VS REG FACULTY 
-- ADD CHECK BOX FOR SHOW CLASS COUNT
-
+- selection of if you want to show grades per instructor or class 
+(class option only works when user selects Single Department Level) 
 """
 
 
