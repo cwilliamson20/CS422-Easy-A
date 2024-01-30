@@ -44,9 +44,22 @@ def proc_row(row: dict, mode: Value_Data_Mode):
 # a dict in the format {string : float} {PROFESSOR_NAME : METRIC}.
 # the values in the dictionary will be averaged for every class the professor teaches
 # the dictionary will be unsorted
-def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode) :
+def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode, show_nums = False, reg_fac_only = False) :
     output_dict = {}
     ctr_dict = {}
+    reg_fac = []
+
+    if reg_fac_only:
+        try:
+            with open('output.csv', mode= "r", encoding="utf-8-sig") as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    # print(row["IS_FACULTY"])
+                    if row["IS_FACULTY"] == "1":
+                        reg_fac.append(row["NAME"])
+        except IOError as e:
+            print(f"Faculty list retrieval error. Couldn't read to output.csv ({e})")
+    # print(reg_fac)
     with open('data.csv', mode= "r", encoding="utf-8-sig") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
@@ -71,6 +84,25 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
 
                     #meets criteria
                     prof = row["INSTRUCTOR"]
+
+                    if reg_fac_only:
+                        # splits  = prof.split()
+                        # if splits[0][-1] == ',':
+                        #     splits[0] = splits[0][:-1]
+                        b = False
+                        for s in reg_fac:
+                            splits2 = s.split()
+                            # print(splits)
+                            # print(splits2)
+                            # First M Last
+                            # Last, First M
+                            if splits2[0] in prof and splits2[-1] in prof:
+                                b= True
+                                break
+
+                        if not b:
+                            continue
+                    
                     print("storing info on Prof. " + prof +" for course "+row["SUBJ"]+" "+row["NUMB"]+" for "+row["TERM_DESC"])
                     if prof not in output_dict:
                         output_dict[prof] = 0.0
@@ -82,7 +114,14 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
 
     for key in output_dict:
         output_dict[key] = output_dict[key] / ctr_dict[key]
-    return output_dict
+
+    if not show_nums:
+        return output_dict
+    outdict_2 = {}
+
+    for key in output_dict:
+        outdict_2[key + f" ({ctr_dict[key]})"] = output_dict[key]
+    return outdict_2
 
 
 
