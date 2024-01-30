@@ -28,3 +28,5 @@ def basic_graph(output_dict, options_dict):
 
     #Generate graph
     plt.show()
+
+
