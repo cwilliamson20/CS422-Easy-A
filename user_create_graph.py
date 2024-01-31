@@ -1,14 +1,19 @@
-import user_interface
+import student_interface
 import gen_data
 import basicgraph
 from tkinter import Tk
 
+"""
+TODO: 
+- send course_mode as parameter of basicgraph
+basicgraph(output_dict, course_mode, options_dict)
+"""
 
 def get_graph_data():
 
     # Create an instance of EasyAUserInterface
     root = Tk()
-    user_interface_instance = user_interface.EasyAUserInterface(root)
+    user_interface_instance = student_interface.EasyAUserInterface(root)
     options_dict = user_interface_instance.create_dict()
 
     # Unpacking dictionary values to get graph option values:

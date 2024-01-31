@@ -4,10 +4,7 @@ from tkinter import ttk
 import user_create_graph
 
 """
-For user_create_graph:
-- send course_mode as parameter of basicgraph
-basicgraph(output_dict, course_mode, options_dict)
-
+TODO:
 - selection of if you want to show grades per instructor or class 
 (class option only works when user selects Single Department Level) 
 """
