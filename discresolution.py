@@ -61,7 +61,10 @@ def compare_names(name_data, scraped_data, output_file):
         for name, _ in scraped_data:
             if name not in existing_names:
                 writer.writerow({'NAME': name, 'IS_FACULTY': 1})
-
+                
+# this function is used to sort and delete duplicates in the outpuf.csv file
+#Parameters:
+#       output_file: the csv file where output is stored from compare_names
 def cleanup_output(output_file):
     with open(output_file, 'r', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
