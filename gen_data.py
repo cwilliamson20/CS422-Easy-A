@@ -18,6 +18,10 @@ class Value_Data_Mode(Enum):
     PERC_FS="fprec"
     PERC_D_AND_PERC_F="D/F"
 
+class Output_Key_Mode(Enum):
+    PROF_NAME="prof"
+    COURSE_NUM="course"
+
 
 
 #helper function for gen_data
@@ -44,7 +48,7 @@ def proc_row(row: dict, mode: Value_Data_Mode):
 # a dict in the format {string : float} {PROFESSOR_NAME : METRIC}.
 # the values in the dictionary will be averaged for every class the professor teaches
 # the dictionary will be unsorted
-def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode, show_nums = False, reg_fac_only = False) :
+def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode,  output_mode = Output_Key_Mode.PROF_NAME, show_nums = False, reg_fac_only = False) :
     output_dict = {}
     ctr_dict = {}
     reg_fac = []
@@ -83,9 +87,13 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         continue # neither of the above
 
                     #meets criteria
-                    prof = row["INSTRUCTOR"]
+                    if Output_Key_Mode.COURSE_NUM:
+                        prof = row["NUMB"]
+                    else:
+                        prof = row["INSTRUCTOR"]
 
-                    if reg_fac_only:
+
+                    if output_mode = Output_Key_Mode.PROF_NAME and reg_fac_only:
                         # splits  = prof.split()
                         # if splits[0][-1] == ',':
                         #     splits[0] = splits[0][:-1]
