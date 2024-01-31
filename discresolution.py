@@ -1,5 +1,6 @@
 import csv
 import os
+import operator
 
 
 #function to adjust name format to make formats between scraped and data.csv the same
@@ -61,6 +62,28 @@ def compare_names(name_data, scraped_data, output_file):
             if name not in existing_names:
                 writer.writerow({'NAME': name, 'IS_FACULTY': 1})
 
+def cleanup_output(output_file):
+    with open(output_file, 'r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        data = list(reader)
+
+    # Sort the data by 'NAME'
+    sorted_data = sorted(data, key=lambda x: x['NAME'])
+
+    # Remove duplicates
+    deduplicated_data = []
+    seen_names = set()
+    for row in sorted_data:
+        if row['NAME'] not in seen_names:
+            deduplicated_data.append(row)
+            seen_names.add(row['NAME'])
+
+    # Write the sorted and deduplicated data back to the output file
+    with open(output_file, 'w', newline='') as csvfile:
+        fieldnames = ['NAME', 'IS_FACULTY']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(deduplicated_data)
 
 
 #function to start the discrepancy resolution process between scraped and data.csv information 
@@ -77,3 +100,5 @@ def begin_resolution(faculty_names):
     #path to output csv file
     output_file = '/Users/angelsoto/Desktop/mostRecent/CS422-Easy-A/output.csv' #TODO: Change this file path 
     compare_names(name_data, scraped_data, output_file)
+
+    cleanup_output(output_file)
