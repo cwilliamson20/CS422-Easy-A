@@ -119,19 +119,23 @@ class EasyAUserInterface:
         self.r_reg_fac = Radiobutton(self.user_frame, text="Display Regular Faculty", variable=self.var_fac, value=2)
         self.r_reg_fac.grid(row=9, column=1, sticky=W, padx=(0, 20))
 
-
-        # Create a label to display selected values
-        #self.selected_values_label = Label(self.user_frame, text="")
-        #self.selected_values_label.grid(row=13, column=0, columnspan=2, pady=(10, 0))
+        # Show grades per instructor or per class: radio buttons
+        Label(self.user_frame, text="Show grades per:").grid(row=10, column=1, sticky=W, pady=(10, 0))
+        self.var_x_axis = IntVar()
+        self.r_per_class = Radiobutton(self.user_frame, text="Class", variable=self.var_x_axis, value=1)
+        self.r_per_class.grid(row=12, column=1, sticky=W, padx=(0, 20))
+        self.r_per_fac = Radiobutton(self.user_frame, text="Instructor", variable=self.var_x_axis, value=2)
+        self.r_per_fac.grid(row=11, column=1, sticky=W, padx=(0, 20), pady=(10, 0))
 
         # Enter button
-        Button(self.user_frame, text="Enter", command=self.enter_graph).grid(row=10, column=1, sticky=W, pady=(10, 0))
+        Button(self.user_frame, text="Enter", command=self.enter_graph).grid(row=13, column=1, sticky=W, pady=(30, 0))
 
         # SET DEFAULT VALUES
         # Radio buttons:
         self.var.set(1)  # Single Class
         self.var_grade_mode.set(1)  # EasyA: Show Percent As
         self.var_fac.set(1)  # Display All Faculty
+        self.var_x_axis.set(1)
 
         # Box selections:
         self.class_level_box.set("100")  # Set default value for department level
@@ -154,6 +158,7 @@ class EasyAUserInterface:
         show_percent = self.var1.get()
         show_regular_faculty = self.var2.get()
         show_class_count = self.var3.get()
+        x_axis = self.var_x_axis.get()
 
         # Create dictionary with the selected values
         data_dict = {
@@ -166,7 +171,8 @@ class EasyAUserInterface:
             "course_number": course_number,
             "show_percent": show_percent,
             "show_regular_faculty": show_regular_faculty,
-            "show_class_count": show_class_count
+            "show_class_count": show_class_count,
+            "x_axis": x_axis
         }
 
         return data_dict
