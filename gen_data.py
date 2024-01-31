@@ -44,8 +44,11 @@ def proc_row(row: dict, mode: Value_Data_Mode):
 #   or an asterix for all years (e.g. "*.")
 # values -  what values do you want to retrieve. What do tou want to measure? For example, PERC_AS
 #   PERC_D_AND_PERC_F will compound the nonpassing grades D + F
+# output_mode - what you want the keys in the return dict to be. Either PROF_NAME (default) or COURSE_NUM.
+# show_nums - put the number of coures in the key for the dictionary in the format PROF_NAME (NUM). Either True or False (default)
+# reg_fac_only - show only regular faculty. output.csv must exist or else nothing will be returned. Either True or False (default(
 # return:
-# a dict in the format {string : float} {PROFESSOR_NAME : METRIC}.
+# a dict in the format {string : float} {PROFESSOR_NAME : METRIC} or {COURSE_NUM : METRIC}.
 # the values in the dictionary will be averaged for every class the professor teaches
 # the dictionary will be unsorted
 def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode,  output_mode = Output_Key_Mode.PROF_NAME, show_nums = False, reg_fac_only = False) :
@@ -87,13 +90,13 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         continue # neither of the above
 
                     #meets criteria
-                    if Output_Key_Mode.COURSE_NUM:
+                    if output_mode == Output_Key_Mode.COURSE_NUM:
                         prof = row["NUMB"]
                     else:
                         prof = row["INSTRUCTOR"]
 
 
-                    if output_mode = Output_Key_Mode.PROF_NAME and reg_fac_only:
+                    if output_mode == Output_Key_Mode.PROF_NAME and reg_fac_only:
                         # splits  = prof.split()
                         # if splits[0][-1] == ',':
                         #     splits[0] = splits[0][:-1]
