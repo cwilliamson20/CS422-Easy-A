@@ -45,6 +45,5 @@ def get_graph_data():
 
     print(graph_dict)
 
-    # basicgraph.basic_graph(graph_dict, "TITLE", "y_label", "x_label", 10)
-    basicgraph.basic_graph(graph_dict, options_dict)
+    basicgraph.basic_graph(graph_dict, course_mode, options_dict)
 
