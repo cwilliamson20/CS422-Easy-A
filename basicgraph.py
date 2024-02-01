@@ -11,13 +11,11 @@ def basic_graph(output_dict, course_mode, options_dict):
     #Read labels for graph
     title = course_mode
     y_label = options_dict["grade_mode"]
-    x_label = "Instructor"
+    x_label = options_dict["x_axis"]
     
     #if showing class count
     if options_dict["show_class_count"] == True:
         x_label += "(and number of classes taught)"
-    else if options_dict["show_all_classes"] == True:
-        x_label = "Class"
 
 
     #Assign figure size
