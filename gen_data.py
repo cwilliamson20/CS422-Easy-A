@@ -19,8 +19,8 @@ class Value_Data_Mode(Enum):
     PERC_D_AND_PERC_F="D/F"
 
 class Output_Key_Mode(Enum):
-    PROF_NAME="prof"
-    COURSE_NUM="course"
+    PROF_NAME="Professor"
+    COURSE_NUM="Course"
 
 
 

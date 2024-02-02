@@ -6,12 +6,14 @@ import sys
 import verify_data
 import os
 import shutil
-import discresolution
-
+import webscraper
 
 def print_usage():
-    print("usage: ...")
-    print(sys.argv)
+    print("usage: python3 admin.py [args..]\n")
+    print("-V or --verify\t\t\tverifies the current grade database with the gradedata.js provided by the Daily Emerald System.\n")
+    print("-w or --webscraper\t\truns the webscraper and generates the regular faculty list needed for some graph generation.\n")
+    print("-r or --replace <filename>\treplace the current database with the one provided. A backup of the old database will made.\n")
+    # print(sys.argv)
 
 
 
@@ -40,9 +42,10 @@ def main():
 
 
 
-    elif sys.argv[1] == "--webscrapper" or sys.argv[1] == "-w":
+    elif sys.argv[1] == "--webscraper" or sys.argv[1] == "-w":
         print("Running the webscraper and updating faculty list!")
-
+        webscraper.run_webscraper_full()
+        print("done!")
     else:
         print("Invalid arguments!")
         print_usage()
