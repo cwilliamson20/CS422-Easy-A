@@ -3,13 +3,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def basic_graph(output_dict, course_mode, options_dict):
-    #Extract graph data from output_dict
-    x_data = list(output_dict.keys()) #get percentage data from dict
-    y_data = list(output_dict.values()) #get professor or class data from dict
+def basic_graph(output_dict,options_dict):
+    
+    #Sort the data from output_dict in descending order
+    sorted_dict = sorted(output_dict.items(), key = lambda x: x[1], reverse = True)}
+    
+    #Get graph data on professor/class names
+    x_data = list(sorted_dict.keys()) 
+    #Get graph data on grade percentages
+    y_data = list(sorted_dict.values()) 
 
+    #Get the top 5 data entries by percentage
+    y_data = y_data[:4]
+    x_data = x_data[:4]
+    
     #Read labels for graph
-    title = course_mode
+    title = options_dict["course_mode"]
     y_label = options_dict["grade_mode"]
     x_label = options_dict["x_axis"]
     
@@ -20,12 +29,14 @@ def basic_graph(output_dict, course_mode, options_dict):
 
     #Assign figure size
     fig = plt.figure(figsize = (10, 5))
+    
     #Bar plot
-    plt.bar(x_data, y_data, color = blue, width = 0.8, label =, align='center' ) 
-
+    plt.bar(x_data, y_data, color = blue, width = 1, align='center' ) 
+    plt.ylim(0, 100)
     # Add gridlines
     #plt.grid(b = True, color = 'grey', linestyle = '-.', linewidth = 0.5, alpha = 0.2)
-
+    #Rotate x labels
+    plt.xticks(rotation=90) 
 
     #Add labels
     plt.ylabel(y_label) 
@@ -36,3 +47,8 @@ def basic_graph(output_dict, course_mode, options_dict):
     plt.show()
 
 
+#def main():
+#    basicgraph():
+
+if __name__ == "__main__":
+    main()
