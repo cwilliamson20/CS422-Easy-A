@@ -2,7 +2,7 @@
 # Subjects: Biology, Chemistry and Biochemistry, Computer and Information Science, Earth Sciences, General Science,
 # Human Physiology, Mathematics, Neuroscience, Physics, and Psychology
 
-import requests    #TODO: list what packages the admin needs to install before installing EasyA
+import requests   
 from bs4 import BeautifulSoup
 import re
 from discresolution import begin_resolution #import begin_resolution from discresolution.py to be able to use the discrepancy resolution process

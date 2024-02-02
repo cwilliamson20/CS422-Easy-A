@@ -4,7 +4,7 @@ import operator
 
 
 #function to adjust name format to make formats between scraped and data.csv the same
-#Paramteres:
+#Parameters:
 #   Original_name: name from data.csv in the format of "last, middleinitial. first"
 #                  The name will be changed into  "first middleinitial. last"
 def adjust_name(original_name):

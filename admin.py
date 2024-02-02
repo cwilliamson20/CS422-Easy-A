@@ -12,7 +12,7 @@ def print_usage():
     print("usage: python3 admin.py [args..]\n")
     print("-V or --verify\t\t\tverifies the current grade database with the gradedata.js provided by the Daily Emerald System.\n")
     print("-w or --webscraper\t\truns the webscraper and generates the regular faculty list needed for some graph generation.\n")
-    print("-r or --replace <filename>\treplace the current database with the one provided. A backup of the old database will made.\n")
+    print("-r or --replace <filename>\treplace the current database with the one provided. A backup of the old database will be made.\n")
     # print(sys.argv)
 
 
@@ -23,7 +23,7 @@ def main():
     elif sys.argv[1] == "--verify" or sys.argv[1] == "-V":
         verify_data.main()
     elif sys.argv[1] == "--replace" or sys.argv[1] == "-r":
-        print("replacing data")
+        print("Replacing data...")
         if len(sys.argv) < 3:
             print("Usage: python3 admin.py -r <filename>")
         else:
@@ -36,7 +36,7 @@ def main():
             shutil.copyfile(sys.argv[2], "data.csv")
             print("Creating backup file data.csv.old")
             os.replace("data.csv.tmp","data.csv.old")
-            print("done successfully")
+            print("Done successfully")
 
 
 
@@ -45,7 +45,7 @@ def main():
     elif sys.argv[1] == "--webscraper" or sys.argv[1] == "-w":
         print("Running the webscraper and updating faculty list!")
         webscraper.run_webscraper_full()
-        print("done!")
+        print("Done!")
     else:
         print("Invalid arguments!")
         print_usage()
