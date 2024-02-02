@@ -13,7 +13,7 @@ def basic_graph(output_dict,options_dict):
 
     """
     #Sort the data from output_dict in descending order
-    sorted_dict = sorted(output_dict.items(), key = lambda x: x[1], reverse = True)}
+    sorted_dict = sorted(output_dict.items(), key = lambda x: x[1], reverse = True)
     
     #Get graph data on professor/class names
     x_data = list(sorted_dict.keys()) 
