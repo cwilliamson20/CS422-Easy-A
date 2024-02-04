@@ -13,12 +13,6 @@ def basic_graph(output_dict,options_dict):
     if not output_dict:
         print("Error getting graph data!")
         return
-
-
-    #Sort the data from output_dict in descending order
-    tupled_output = list(output_dict.items())
-    sorted_dict = sorted(tupled_output, key = lambda x: x[1], reverse = True)
-
     
     #Sort the data from output_dict in descending order
     tupled_output = list(output_dict.items())
@@ -37,13 +31,14 @@ def basic_graph(output_dict,options_dict):
     x_data = x_data[:entries]
     
     #Read labels for graph
-    fig_title = options_dict["course_mode"]  # TODO: fix axis labels and graph title
+    title = ""  # TODO: fix axis labels and graph title
     
     # determine y label by if its %As or not
     if options_dict["grade_mode"] == 1:
         y_label = "% As"
     else:
         y_label = "% Ds and Fs"
+    
     #if showing class count, update x label
     if options_dict["x_axis"] == 1:
         x_label = "Class"
@@ -52,24 +47,19 @@ def basic_graph(output_dict,options_dict):
 
 
     #Assign figure size
-    fig, ax = plt.figure(figsize = (10, 5))
+    fig = plt.figure(figsize = (10, 5))
     
     #Bar plot
-    ax.bar(x_data, y_data, color = 'blue', width=0.7, align='center')
-    ax.set_xlim(-0.5, entries)
-    ax.set_ylim(0,100)
-   
-    #Add labels
-    ax.set(ylabel=y_label, xlabel=x_label, title=fig_title)
+    plt.bar(x_data, y_data, color = 'blue', width = 1, align='center' ) 
+    plt.ylim(0, 100 )
     
     #Rotate x labels
-    plt.xticks(rotation=30, ha='center') 
-
+    plt.xticks(rotation=-90) 
 
     #Add labels
-    #plt.ylabel(y_label) 
-    #plt.xlabel(x_label) 
-    #plt.title(title)
+    plt.ylabel(y_label) 
+    plt.xlabel(x_label) 
+    plt.title(title)
 
     #Generate graph
     plt.show()
