@@ -9,17 +9,17 @@ TODO:
 basicgraph(output_dict, course_mode, options_dict)
 """
 
-def get_graph_data():
+def get_graph_data(app, root):
 
-    # Create an instance of EasyAUserInterface
-    root = Tk()
-    user_interface_instance = student_interface.EasyAUserInterface(root)
-    options_dict = user_interface_instance.create_dict()
+    # get the information from the already created UI instance
+    options_dict = app.create_dict()
+    print(f"options_dict = {options_dict}")
 
     # Unpacking dictionary values to get graph option values:
 
     subject_code = options_dict["subject_code"]
-    course_number = int(options_dict["course_number"])
+    course_number = options_dict["course_number"]
+
     # course_number = 210
 
     year = options_dict["year"]
@@ -41,9 +41,10 @@ def get_graph_data():
     elif options_dict["grade_mode"] == 2:
         grade_mode = gen_data.Value_Data_Mode.PERC_D_AND_PERC_F
 
+    print(f"This is the info going into gen_data: {options_dict}")
     graph_dict = gen_data.gen_data(subject_code, course_number, course_mode, year, grade_mode)
+    # graph_dict = gen_data.gen_data("BI", "121", gen_data.Course_Data_Mode.SINGLE_COURSE, "*", gen_data.Value_Data_Mode.PERC_AS)
+    print(f"this is what was returned by gen_data: {graph_dict}")
 
-    print(graph_dict)
-
-    basicgraph.basic_graph(graph_dict, course_mode, options_dict)
+    basicgraph.basic_graph(graph_dict, options_dict)
 

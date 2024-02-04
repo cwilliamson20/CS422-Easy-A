@@ -18,6 +18,10 @@ class Value_Data_Mode(Enum):
     PERC_FS="fprec"
     PERC_D_AND_PERC_F="D/F"
 
+class Output_Key_Mode(Enum):
+    PROF_NAME="Professor"
+    COURSE_NUM="Course"
+
 
 
 #helper function for gen_data
@@ -40,11 +44,14 @@ def proc_row(row: dict, mode: Value_Data_Mode):
 #   or an asterix for all years (e.g. "*.")
 # values -  what values do you want to retrieve. What do tou want to measure? For example, PERC_AS
 #   PERC_D_AND_PERC_F will compound the nonpassing grades D + F
+# output_mode - what you want the keys in the return dict to be. Either PROF_NAME (default) or COURSE_NUM.
+# show_nums - put the number of coures in the key for the dictionary in the format PROF_NAME (NUM). Either True or False (default)
+# reg_fac_only - show only regular faculty. output.csv must exist or else nothing will be returned. Either True or False (default(
 # return:
-# a dict in the format {string : float} {PROFESSOR_NAME : METRIC}.
+# a dict in the format {string : float} {PROFESSOR_NAME : METRIC} or {COURSE_NUM : METRIC}.
 # the values in the dictionary will be averaged for every class the professor teaches
 # the dictionary will be unsorted
-def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode, show_nums = False, reg_fac_only = False) :
+def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode,  output_mode = Output_Key_Mode.PROF_NAME, show_nums = False, reg_fac_only = False) :
     output_dict = {}
     ctr_dict = {}
     reg_fac = []
@@ -75,7 +82,7 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                     # print("MATCH!" + row["SUBJ"] +":" +row["NUMB"])
                     if mode == Course_Data_Mode.SINGLE_COURSE:
                         if row["NUMB"] != course:
-                            continue # does not meat criteria
+                            continue # does not meet criteria
                     elif mode == Course_Data_Mode.COURSE_LEVEL:
                         if row["NUMB"][:1] != course[:1]:
                             continue # does not meet criteria
@@ -83,9 +90,13 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         continue # neither of the above
 
                     #meets criteria
-                    prof = row["INSTRUCTOR"]
+                    if output_mode == Output_Key_Mode.COURSE_NUM:
+                        prof = row["NUMB"]
+                    else:
+                        prof = row["INSTRUCTOR"]
 
-                    if reg_fac_only:
+
+                    if output_mode == Output_Key_Mode.PROF_NAME and reg_fac_only:
                         # splits  = prof.split()
                         # if splits[0][-1] == ',':
                         #     splits[0] = splits[0][:-1]
@@ -115,12 +126,14 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
     for key in output_dict:
         output_dict[key] = output_dict[key] / ctr_dict[key]
 
+    print(f"output_dict: {output_dict}")
     if not show_nums:
         return output_dict
     outdict_2 = {}
 
     for key in output_dict:
         outdict_2[key + f" ({ctr_dict[key]})"] = output_dict[key]
+    
     return outdict_2
 
 

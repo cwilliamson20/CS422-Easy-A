@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 import matplotlib.pyplot as plt
-#import numpy as np
-
 
 def basic_graph(output_dict,options_dict):
     """
@@ -20,27 +18,37 @@ def basic_graph(output_dict,options_dict):
     #Sort the data from output_dict in descending order
     tupled_output = list(output_dict.items())
     sorted_dict = sorted(tupled_output, key = lambda x: x[1], reverse = True)
+
     
+    #Sort the data from output_dict in descending order
+    tupled_output = list(output_dict.items())
+    sorted_output = sorted(tupled_output, key=lambda x: x[1])
+
     #Get graph data on professor/class names
     x_data = [x[0] for x in sorted_output]
     #Get graph data on grade percentages
     y_data = [x[1] for x in sorted_output]
 
     #Determine the number of entries in graph
-    entries = 5
+    entries = len(sorted_output)
     
     #Get the top 5 data entries by percentage
     y_data = y_data[:entries]
     x_data = x_data[:entries]
     
     #Read labels for graph
-    fig_title = options_dict["course_mode"]
-    y_label = options_dict["grade_mode"]
-    x_label = options_dict["x_axis"]
+    fig_title = options_dict["course_mode"]  # TODO: fix axis labels and graph title
     
+    # determine y label by if its %As or not
+    if options_dict["grade_mode"] == 1:
+        y_label = "% As"
+    else:
+        y_label = "% Ds and Fs"
     #if showing class count, update x label
-    if options_dict["show_class_count"] == True:
-        x_label += "(and number of classes taught)"
+    if options_dict["x_axis"] == 1:
+        x_label = "Class"
+    else:
+        x_label = "Instructor"
 
 
     #Assign figure size
@@ -56,6 +64,7 @@ def basic_graph(output_dict,options_dict):
     
     #Rotate x labels
     plt.xticks(rotation=30, ha='center') 
+
 
     #Add labels
     #plt.ylabel(y_label) 

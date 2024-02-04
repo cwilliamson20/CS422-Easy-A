@@ -4,7 +4,7 @@ import operator
 
 
 #function to adjust name format to make formats between scraped and data.csv the same
-#Paramteres:
+#Parameters:
 #   Original_name: name from data.csv in the format of "last, middleinitial. first"
 #                  The name will be changed into  "first middleinitial. last"
 def adjust_name(original_name):
@@ -94,14 +94,14 @@ def cleanup_output(output_file):
 #   faculty_names: list of (name, department) tuples that is obtained from web scraper in webscraper.py
 def begin_resolution(faculty_names):
     # path of data.csv file 
-    file_path = '/Users/angelsoto/Desktop/mostRecent/CS422-Easy-A/data.csv' #TODO: Change this file path 
+    file_path = 'data.csv' #TODO: Change this file path
     name_data = read_data(file_path)
 
     # Set scrapedData to the list of faculty names obtained by scraper
     scraped_data = faculty_names
 
     #path to output csv file
-    output_file = '/Users/angelsoto/Desktop/mostRecent/CS422-Easy-A/output.csv' #TODO: Change this file path 
+    output_file = 'output.csv' #TODO: Change this file path
     compare_names(name_data, scraped_data, output_file)
 
     cleanup_output(output_file)
