@@ -12,6 +12,10 @@ def basic_graph(output_dict,options_dict):
         options_dict (dict): The dictionary containing the selections of the user, used for labeling the graph
 
     """
+    if not output_dict:
+        print("Error getting graph data!")
+        return
+    
     #Sort the data from output_dict in descending order
     sorted_dict = sorted(output_dict.items(), key = lambda x: x[1], reverse = True)
     

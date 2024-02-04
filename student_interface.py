@@ -135,9 +135,9 @@ class EasyAUserInterface:
         self.var_x_axis.set(1)
 
         # Box selections:
-        # self.class_level_box.set("100")  # Set default value for department level
-        # self.year_box.set("All")  # Set default value for year
-        # self.subject_box.set("BI")  # Set default value for subject codes
+        self.class_level_box.set("100")  # Set default value for department level
+        self.year_box.set("All")  # Set default value for year
+        self.subject_box.set("BI")  # Set default value for subject codes
 
     def enter_graph(self):
         user_create_graph.get_graph_data(app, root)
@@ -145,9 +145,9 @@ class EasyAUserInterface:
     def create_dict(self):
         # Retrieve selected values from radio buttons, check buttons, and comboboxes
 
-        graph_type = self.var
-        grade_mode = self.var_grade_mode
-        fac_mode = self.var_fac
+        graph_type = self.var.get()
+        grade_mode = self.var_grade_mode.get()
+        fac_mode = self.var_fac.get()
         department_level = self.class_level_box.get()
         year = self.year_box.get()
         subject_code = self.subject_box.get()
