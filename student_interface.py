@@ -91,38 +91,30 @@ class EasyAUserInterface:
 
         # Column 2:
         Label(self.user_frame, text="Display Options:").grid(row=0, column=1, sticky=W, pady=(0, 10))
-        # Add check boxes
-        self.var1 = IntVar()
-        self.var2 = IntVar()
-        self.var3 = IntVar()
-        c1 = Checkbutton(self.user_frame, text='Show % As', variable=self.var1, onvalue=1, offvalue=0)
-        c1.grid(row=2, column=1, sticky=W)
-        c2 = Checkbutton(self.user_frame, text='Show Only Regular Faculty', variable=self.var2, onvalue=1, offvalue=0)
-        c2.grid(row=3, column=1, sticky=W)
-        c3 = Checkbutton(self.user_frame, text='Show Class Count on X-Axis', variable=self.var3, onvalue=1, offvalue=0)
-        c3.grid(row=4, column=1, sticky=W)
 
         # EasyA vs JustPass: radio buttons
-        Label(self.user_frame, text="Mode: EasyA vs JustPass").grid(row=5, column=1, sticky=W, pady=(10, 0))
+        Label(self.user_frame, text="Mode: EasyA vs JustPass").grid(row=2, column=1, sticky=W, pady=(10, 0))
         self.var_grade_mode = IntVar()
         self.r_easya = Radiobutton(self.user_frame, text="EasyA: Show Percent As", variable=self.var_grade_mode, value=1)
-        self.r_easya.grid(row=6, column=1, sticky=W, padx=(0, 20))
+        self.r_easya.grid(row=3, column=1, sticky=W, padx=(0, 20))
         self.r_justpass = Radiobutton(self.user_frame, text="JustPass: Show Percent Ds or Fs", variable=self.var_grade_mode, value=2)
-        self.r_justpass.grid(row=7, column=1, sticky=W, padx=(0, 20))
+        self.r_justpass.grid(row=4, column=1, sticky=W, padx=(0, 20))
 
+        # Display all instructors or just regular faculty
+        Label(self.user_frame, text="Instructors To Display:").grid(row=5, column=1, sticky=W, pady=(10, 0))
         self.var_fac = IntVar()
-        self.r_all_fac = Radiobutton(self.user_frame, text="Display All Faculty", variable=self.var_fac, value=1)
-        self.r_all_fac.grid(row=8, column=1, sticky=W, padx=(0, 20), pady=(10, 0))
-        self.r_reg_fac = Radiobutton(self.user_frame, text="Display Regular Faculty", variable=self.var_fac, value=2)
-        self.r_reg_fac.grid(row=9, column=1, sticky=W, padx=(0, 20))
+        self.r_all_fac = Radiobutton(self.user_frame, text="Display All Instructors", variable=self.var_fac, value=1)
+        self.r_all_fac.grid(row=6, column=1, sticky=W, padx=(0, 20), pady=(10, 0))
+        self.r_reg_fac = Radiobutton(self.user_frame, text="Display Only Regular Faculty", variable=self.var_fac, value=2)
+        self.r_reg_fac.grid(row=7, column=1, sticky=W, padx=(0, 20))
 
         # Show grades per instructor or per class: radio buttons
-        Label(self.user_frame, text="Show grades per:").grid(row=10, column=1, sticky=W, pady=(10, 0))
+        Label(self.user_frame, text="Show grades per:").grid(row=8, column=1, sticky=W, pady=(10, 0))
         self.var_x_axis = IntVar()
         self.r_per_class = Radiobutton(self.user_frame, text="Class", variable=self.var_x_axis, value=1)
-        self.r_per_class.grid(row=12, column=1, sticky=W, padx=(0, 20))
+        self.r_per_class.grid(row=9, column=1, sticky=W, padx=(0, 20))
         self.r_per_fac = Radiobutton(self.user_frame, text="Instructor", variable=self.var_x_axis, value=2)
-        self.r_per_fac.grid(row=11, column=1, sticky=W, padx=(0, 20), pady=(10, 0))
+        self.r_per_fac.grid(row=10, column=1, sticky=W, padx=(0, 20), pady=(10, 0))
 
         # Enter button
         Button(self.user_frame, text="Enter", command=self.enter_graph).grid(row=13, column=1, sticky=W, pady=(30, 0))
