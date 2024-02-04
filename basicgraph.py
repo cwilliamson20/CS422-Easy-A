@@ -34,7 +34,7 @@ def basic_graph(output_dict,options_dict):
     x_data = x_data[:entries]
     
     #Read labels for graph
-    fig_title = options_dict["course_mode"]
+    fig_title = ''#options_dict["course_mode"]
     y_label = options_dict["grade_mode"]
     x_label = options_dict["x_axis"]
     
