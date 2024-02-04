@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 import matplotlib.pyplot as plt
-import numpy as np
-
 
 def basic_graph(output_dict,options_dict):
     """
@@ -17,22 +15,23 @@ def basic_graph(output_dict,options_dict):
         return
     
     #Sort the data from output_dict in descending order
-    sorted_dict = sorted(output_dict.items(), key = lambda x: x[1], reverse = True)
-    
+    tupled_output = list(output_dict.items())
+    sorted_output = sorted(tupled_output, key=lambda x: x[1])
+
     #Get graph data on professor/class names
-    x_data = list(sorted_dict.keys()) 
+    x_data = [x[0] for x in sorted_output]
     #Get graph data on grade percentages
-    y_data = list(sorted_dict.values()) 
+    y_data = [x[1] for x in sorted_output]
 
     #Determine the number of entries in graph
-    entries = 5
+    entries = len(sorted_output)
     
     #Get the top 5 data entries by percentage
     y_data = y_data[:entries]
     x_data = x_data[:entries]
     
     #Read labels for graph
-    title = options_dict["course_mode"]
+    title = ""  # TODO: fix axis labels and graph title
     y_label = options_dict["grade_mode"]
     x_label = options_dict["x_axis"]
     
@@ -45,11 +44,11 @@ def basic_graph(output_dict,options_dict):
     fig = plt.figure(figsize = (10, 5))
     
     #Bar plot
-    plt.bar(x_data, y_data, color = blue, width = 1, align='center' ) 
-    plt.ylim(0, 100)
+    plt.bar(x_data, y_data, color = 'blue', width = 1, align='center' ) 
+    plt.ylim(0, 100 )
     
     #Rotate x labels
-    plt.xticks(rotation=90) 
+    plt.xticks(rotation=-90) 
 
     #Add labels
     plt.ylabel(y_label) 
