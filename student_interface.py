@@ -144,9 +144,6 @@ class EasyAUserInterface:
         year = self.year_box.get()
         subject_code = self.subject_box.get()
         course_number = self.course_num_entry.get()
-        show_percent = self.var1.get()
-        show_regular_faculty = self.var2.get()
-        show_class_count = self.var3.get()
         x_axis = self.var_x_axis.get()
 
         # Create dictionary with the selected values
@@ -158,9 +155,6 @@ class EasyAUserInterface:
             "year": year,
             "subject_code": subject_code,
             "course_number": course_number,
-            "show_percent": show_percent,
-            "show_regular_faculty": show_regular_faculty,
-            "show_class_count": show_class_count,
             "x_axis": x_axis
         }
 

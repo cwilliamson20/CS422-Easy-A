@@ -32,12 +32,18 @@ def basic_graph(output_dict,options_dict):
     
     #Read labels for graph
     title = ""  # TODO: fix axis labels and graph title
-    y_label = options_dict["grade_mode"]
-    x_label = options_dict["x_axis"]
+    
+    # determine y label by if its %As or not
+    if options_dict["grade_mode"] == 1:
+        y_label = "% As"
+    else:
+        y_label = "% Ds and Fs"
     
     #if showing class count, update x label
-    if options_dict["show_class_count"] == True:
-        x_label += "(and number of classes taught)"
+    if options_dict["x_axis"] == 1:
+        x_label = "Class"
+    else:
+        x_label = "Instructor"
 
 
     #Assign figure size
