@@ -82,7 +82,7 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                     # print("MATCH!" + row["SUBJ"] +":" +row["NUMB"])
                     if mode == Course_Data_Mode.SINGLE_COURSE:
                         if row["NUMB"] != course:
-                            continue # does not meat criteria
+                            continue # does not meet criteria
                     elif mode == Course_Data_Mode.COURSE_LEVEL:
                         if row["NUMB"][:1] != course[:1]:
                             continue # does not meet criteria
@@ -126,12 +126,14 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
     for key in output_dict:
         output_dict[key] = output_dict[key] / ctr_dict[key]
 
+    print(f"output_dict: {output_dict}")
     if not show_nums:
         return output_dict
     outdict_2 = {}
 
     for key in output_dict:
         outdict_2[key + f" ({ctr_dict[key]})"] = output_dict[key]
+    
     return outdict_2
 
 

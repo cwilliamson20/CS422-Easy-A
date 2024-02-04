@@ -33,10 +33,7 @@ class EasyAUserInterface:
 
     def create_home_page(self):
         Label(self.home_frame, text="Welcome to EasyA!").pack()
-        Button(self.home_frame, text="User Mode", command=self.show_user_page).pack()
-        Button(self.home_frame, text="Supervisor Mode", command=self.show_supervisor_page).pack()
-
-        # TODO: Hide Main Menu button on home page
+        Button(self.home_frame, text="Student Mode", command=self.show_user_page).pack()
 
     def create_user_page(self):
 
@@ -75,22 +72,22 @@ class EasyAUserInterface:
         self.subject_box = ttk.Combobox(
             self.user_frame,
             state="readonly",
-            values=["BI", "CH", "CIS", "GEOL", "HPHY", "MATH", "PHYS", "PSY"] # TODO: ADD CORRECT COURSE CODES for natural sciences
+            values=["BI", "CH", "CIS", "GEOL", "HPHY", "MATH", "PHYS", "PSY"] 
         )
         self.subject_box.grid(row=10, column=0, sticky=W)
 
         # Course Number text box
         Label(self.user_frame, text="Course Number:").grid(row=11, column=0, sticky=W, pady=(10, 0))
 
+        # Create Entry / text box with visible border
+        self.course_num_entry = ttk.Entry(self.user_frame, style='TEntry')
+        self.course_num_entry.grid(row=12, column=0, sticky=W, pady=(0, 10))
+
         # Create a style
         style = ttk.Style()
 
         # Configure style to have a border
         style.configure('TEntry', borderwidth=2, relief="solid")
-
-        # Create Entry / text box with visible border
-        self.course_num_entry = ttk.Entry(self.user_frame, style='TEntry')
-        self.course_num_entry.grid(row=12, column=0, sticky=W, pady=(0, 10))
 
         # Column 2:
         Label(self.user_frame, text="Display Options:").grid(row=0, column=1, sticky=W, pady=(0, 10))
@@ -140,17 +137,17 @@ class EasyAUserInterface:
         # Box selections:
         self.class_level_box.set("100")  # Set default value for department level
         self.year_box.set("All")  # Set default value for year
-        self.subject_box.set("BI")  # Set default value for subject code
+        self.subject_box.set("BI")  # Set default value for subject codes
 
     def enter_graph(self):
-        user_create_graph.get_graph_data()
+        user_create_graph.get_graph_data(app, root)
 
     def create_dict(self):
         # Retrieve selected values from radio buttons, check buttons, and comboboxes
 
-        graph_type = self.var
-        grade_mode = self.var_grade_mode
-        fac_mode = self.var_fac
+        graph_type = self.var.get()
+        grade_mode = self.var_grade_mode.get()
+        fac_mode = self.var_fac.get()
         department_level = self.class_level_box.get()
         year = self.year_box.get()
         subject_code = self.subject_box.get()
@@ -174,6 +171,9 @@ class EasyAUserInterface:
             "show_class_count": show_class_count,
             "x_axis": x_axis
         }
+
+        print(f"data_dict = {data_dict}")
+        print(f"department_level = {self.class_level_box.get()}")
 
         return data_dict
 
@@ -216,3 +216,5 @@ if __name__ == "__main__":
     root = Tk()
     app = EasyAUserInterface(root)
     root.mainloop()
+
+
