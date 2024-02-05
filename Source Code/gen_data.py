@@ -33,7 +33,7 @@ def proc_row(row: dict, mode: Value_Data_Mode):
 # generate data for graph
 # params:
 # subject - the subject of the course. For example MATH
-# course -  the subject code for the course. For example 251
+# course -  the subject code for the course. For example 251, or the entire department level (100 to 400) 
 # mode - the data criteria mode. For example SINGLE_COURSE
 #    If you choose mode COURSE_LEVEL, then the first digit of the string will determine the level
 #    If you choose mode DEPARTMENT, then the value of course will be ignored
@@ -43,21 +43,21 @@ def proc_row(row: dict, mode: Value_Data_Mode):
 #   or an asterix for all years (e.g. "*.")
 # values -  what values do you want to retrieve. What do tou want to measure? For example, PERC_AS
 #   PERC_D_AND_PERC_F will compound the nonpassing grades D + F
-# output_mode - what you want the keys in the return dict to be. Either PROF_NAME (default) or CLASS_NUM.
+# output_mode - what you want the keys in the return dict to be. Either "Instructor" or "Class".
 # show_nums - put the number of coures in the key for the dictionary in the format PROF_NAME (NUM). Either True or False (default)
 # reg_fac_only - show only regular faculty. output.csv must exist or else nothing will be returned. Either True or False (default(
 # return:
 # a dict in the format {string : float} {PROFESSOR_NAME : METRIC} or {CLASS_NUM : METRIC}.
 # the values in the dictionary will be averaged for every class the professor teaches
 # the dictionary will be unsorted
-def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode,  output_mode, show_nums = False, reg_fac_only = False) :
+def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, values: Value_Data_Mode,  output_mode, show_nums, reg_fac_only) :
     output_dict = {}
     ctr_dict = {}
     reg_fac = []
 
     if reg_fac_only:
         try:
-            with open('output.csv', mode= "r", encoding="utf-8-sig") as csvfile:
+            with open('output.csv', mode= "r", encoding="latin-1") as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     # print(row["IS_FACULTY"])

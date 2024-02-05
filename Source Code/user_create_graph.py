@@ -22,6 +22,10 @@ def get_graph_data(app, root):
 
     subject_code = options_dict["subject_code"]
     course_number = options_dict["course_number"]
+    # if course_number doesn't matter (i.e. single department level, whole department)
+    # then sub in the department level so gen_data still has class level info from first digit
+    if options_dict["graph_type"] != 1:
+        course_number = options_dict["department_level"]
 
     # course_number = 210
 
@@ -51,12 +55,26 @@ def get_graph_data(app, root):
     else:
         x_axis_type = "Instructor"
 
+    # should we show the number of classes in a bar in parentheses?
+    # yes if in instructor mode, no in class mode
+    if x_axis_type == 1: 
+        show_nums = True
+    else:
+        show_nums = False
 
-    print(f"x_axis_type = {x_axis_type}")
-    print(f"This is the info going into gen_data: {options_dict}")
-    graph_dict = gen_data.gen_data(subject_code, course_number, course_mode, year, grade_mode, x_axis_type)
+    # is it all faculty or only regular faculty?
+    if options_dict["fac_mode"] == 1:
+        reg_fac_only = False
+    else:
+        reg_fac_only = True
+
+
+    print(f"options_dict = {options_dict}")
+    print(f"This is the info going into gen_data: {subject_code}, {course_number}, {course_mode}, {year}, {grade_mode}, {x_axis_type}, {show_nums}, {reg_fac_only}")
+    graph_dict = gen_data.gen_data(subject_code, course_number, course_mode, year, grade_mode, x_axis_type, show_nums, reg_fac_only)
     # graph_dict = gen_data.gen_data("BI", "121", gen_data.Course_Data_Mode.SINGLE_COURSE, "*", gen_data.Value_Data_Mode.PERC_AS)
     print(f"this is what was returned by gen_data: {graph_dict}")
+    print(f"{len(graph_dict.keys())} long")
 
     basicgraph.basic_graph(graph_dict, options_dict)
 

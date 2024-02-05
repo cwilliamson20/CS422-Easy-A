@@ -54,9 +54,13 @@ def basic_graph(output_dict,options_dict):
     #Assign figure size
     fig = plt.figure(figsize = (10, 5))
     
+    #add dotted lines at 20% marks for readability
+    for interval in range(20, 100, 20):
+        plt.axhline(y=interval, color = 'gray', linestyle='--')
+
     #Bar plot
-    plt.bar(x_data, y_data, color = 'blue', width = 1, align='center' ) 
-    plt.ylim(0, 100 )
+    plt.bar(x_data, y_data, color = 'blue', width = .5, align='center' ) 
+    plt.ylim(0, 100)
     
     #Rotate x labels
     plt.xticks(rotation=-90) 
@@ -65,6 +69,9 @@ def basic_graph(output_dict,options_dict):
     plt.ylabel(y_label) 
     plt.xlabel(x_label) 
     plt.title(title)
+
+    #make bottom margin larger
+    fig.tight_layout()
 
     #Generate graph
     plt.show()
