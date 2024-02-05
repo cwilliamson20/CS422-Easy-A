@@ -193,9 +193,6 @@ Source: https://emeraldmediagroup.github.io/grade-data/
             "x_axis": x_axis
         }
 
-        print(f"data_dict = {data_dict}")
-        print(f"department_level = {self.class_level_box.get()}")
-
         return data_dict
 
     def show_home_page(self):

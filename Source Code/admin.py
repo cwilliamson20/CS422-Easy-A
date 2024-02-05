@@ -16,7 +16,6 @@ def print_usage():
     print("-V or --verify\t\t\tverifies the current grade database with the gradedata.js provided by the Daily Emerald System.\n")
     print("-W or --webscraper\t\truns the webscraper and generates the regular faculty list needed for some graph generation.\n")
     print("-R or --replace <filename>\treplace the current database with the one provided. A backup of the old database will be made.\n")
-    # print(sys.argv)
 
 
 # gets the command line args and parses them for the operation needed to run
