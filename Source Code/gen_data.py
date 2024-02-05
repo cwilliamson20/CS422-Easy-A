@@ -109,9 +109,9 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         if not b:
                             continue
 
-                        # meets criteria
-                        if output_mode == "Class":
-                            prof = row["NUMB"]
+                    # meets criteria
+                    if output_mode == "Class":
+                        prof = row["NUMB"]
 
 
                     
