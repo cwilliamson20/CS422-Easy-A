@@ -30,7 +30,8 @@ def basic_graph(output_dict,options_dict):
     y_data = [x[1] for x in sorted_output]
 
     #Determine the number of entries in graph
-    entries = len(sorted_output)
+    entries_len = len(sorted_output) if len(sorted_output) < 5 else 5
+    entries = entries_len
     
     #Get the top 5 data entries by percentage
     y_data = y_data[:entries]
