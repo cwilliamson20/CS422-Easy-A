@@ -66,7 +66,7 @@ def basic_graph(output_dict,options_dict):
     
     #Rotate x labels
     plt.xticks(rotation=30, ha='center') 
-
+    plt.subplots_adjust(bottom=0.25)
 
     #Add labels
     #plt.ylabel(y_label) 
