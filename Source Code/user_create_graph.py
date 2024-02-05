@@ -45,8 +45,17 @@ def get_graph_data(app, root):
     elif options_dict["grade_mode"] == 2:
         grade_mode = gen_data.Value_Data_Mode.PERC_D_AND_PERC_F
 
+    # add information about class or instructor level
+    x_axis_type = options_dict["x_axis"]
+    if x_axis_type == 1:
+        x_axis_type = "Class"
+    else:
+        x_axis_type = "Instructor"
+
+
+    print(f"x_axis_type = {x_axis_type}")
     print(f"This is the info going into gen_data: {options_dict}")
-    graph_dict = gen_data.gen_data(subject_code, course_number, course_mode, year, grade_mode)
+    graph_dict = gen_data.gen_data(subject_code, course_number, course_mode, year, grade_mode, x_axis_type)
     # graph_dict = gen_data.gen_data("BI", "121", gen_data.Course_Data_Mode.SINGLE_COURSE, "*", gen_data.Value_Data_Mode.PERC_AS)
     print(f"this is what was returned by gen_data: {graph_dict}")
 
