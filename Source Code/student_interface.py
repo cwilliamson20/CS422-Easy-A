@@ -4,15 +4,8 @@
 # Created 1/25/2024
 # Date Last Modified: 2/4/2024
 from tkinter import *
-from tkinter import filedialog
 from tkinter import ttk
 import user_create_graph
-
-"""
-TODO:
-- selection of if you want to show grades per instructor or class 
-(class option only works when user selects Single Department Level) 
-"""
 
 
 class EasyAUserInterface:
@@ -26,17 +19,16 @@ class EasyAUserInterface:
         # Create frames for each page
         self.home_frame = Frame(root)
         self.user_frame = Frame(root)
-        self.supervisor_frame = Frame(root)
 
         # Initialize pages
         self.create_home_page()
         self.create_user_page()
-        self.create_supervisor_page()
 
         # Show home page initially
         self.show_home_page()
 
     def create_home_page(self):
+        # Create the home page with welcome message and program info
         Label(self.home_frame, text="Welcome to EasyA!").pack()
         Button(self.home_frame, text="Student Mode", command=self.show_user_page).pack()
         default_data_info_string = """The data for EasyA was copied directly from https://emeraldmediagroup.github.io/grade-data/ on 01-16-2024.
@@ -73,10 +65,12 @@ Source: https://emeraldmediagroup.github.io/grade-data/
 
     def create_user_page(self):
 
-        # Column 1:
+        # ------------------------------------------------------------------------------
+        # COLUMN 1:
 
         Label(self.user_frame, text="Graph Type:").grid(row=0, column=0, padx=(0, 20), pady=(0, 10))
-        # Add radio buttons
+        # Graph type: radio buttons
+        # (whether it displays data for a single class, department, or department level)
         self.var = IntVar()
         self.R1 = Radiobutton(self.user_frame, text="Single Class", variable=self.var, value=1)
         self.R1.grid(row=2, column=0, sticky=W, padx=(0, 20))
@@ -125,7 +119,9 @@ Source: https://emeraldmediagroup.github.io/grade-data/
         # Configure style to have a border
         style.configure('TEntry', borderwidth=2, relief="solid")
 
-        # Column 2:
+        # ------------------------------------------------------------------------------
+        # COLUMN 2:
+
         Label(self.user_frame, text="Display Options:").grid(row=0, column=1, sticky=W, pady=(0, 10))
 
         # EasyA vs JustPass: radio buttons
@@ -155,7 +151,9 @@ Source: https://emeraldmediagroup.github.io/grade-data/
         # Enter button
         Button(self.user_frame, text="Enter", command=self.enter_graph).grid(row=13, column=1, sticky=W, pady=(30, 0))
 
+        # ------------------------------------------------------------------------------
         # SET DEFAULT VALUES
+
         # Radio buttons:
         self.var.set(1)  # Single Class
         self.var_grade_mode.set(1)  # EasyA: Show Percent As
@@ -168,6 +166,7 @@ Source: https://emeraldmediagroup.github.io/grade-data/
         self.subject_box.set("BI")  # Set default value for subject codes
 
     def enter_graph(self):
+        # Trigger the graph creation using data from the UI
         user_create_graph.get_graph_data(app, root)
 
     def create_dict(self):
@@ -199,40 +198,17 @@ Source: https://emeraldmediagroup.github.io/grade-data/
 
         return data_dict
 
-
-    def create_supervisor_page(self):
-
-        # Main Menu button
-        main_menu_button = Button(self.root, text="Main Menu", command=self.show_home_page)
-        main_menu_button.pack(side=TOP, anchor=NE)
-
-        Label(self.supervisor_frame, text="Supervisor Page").pack()
-        Button(self.supervisor_frame, text="Select File", command=self.select_file).pack()
-
     def show_home_page(self):
         self.hide_frames()
         self.home_frame.pack()
-
-    #def enter_graph(self):
-        #Label(self.user_frame, text="Graph data entered").grid(row=6, column=1, sticky=W)
 
     def show_user_page(self):
         self.hide_frames()
         self.user_frame.pack()
 
-    def show_supervisor_page(self):
-        self.hide_frames()
-        self.supervisor_frame.pack()
-
     def hide_frames(self):
         self.home_frame.pack_forget()
         self.user_frame.pack_forget()
-        self.supervisor_frame.pack_forget()
-
-    def select_file(self):
-        file_path = filedialog.askopenfilename(title="Select a File")
-        if file_path:
-            print(f"Selected File: {file_path}")
 
 if __name__ == "__main__":
     root = Tk()

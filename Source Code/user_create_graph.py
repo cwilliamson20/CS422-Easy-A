@@ -5,7 +5,6 @@
 # Date Last Modified: 2/4/2024
 import gen_data
 import basicgraph
-from tkinter import Tk
 
 """
 TODO: 
