@@ -1,4 +1,4 @@
-# This module verifies that data.csv matches the data in gradedata.js and is a funciton of Administrator Mode
+# This module verifies that data.csv matches the data in gradedata.js and is a function of Administrator Mode
 # Author(s): Etienne Casal-Jouaux, Connie Williamson
 # Group 4
 # Created 1/28/2024
@@ -8,7 +8,8 @@ import csv
 import re
 from decimal import *
 
-#parses the file looking for the specfic class, the year/term it was taught, crn, and aprec in the gradedata.js file
+
+# Parses the file looking for the specfic class, the year/term it was taught, crn, and aprec in the gradedata.js file
 # compares it to the given. if it matches then our data is accurate
 def look_for_it(cl, yr, crn, jsf, aprec_in):
     mode = 0
@@ -27,14 +28,10 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
             mode =1
             continue
 
-
         if mode == 1:
             if f"\"TERM_DESC\": \"{yr}\"" in line:
                 mode +=1
                 continue
-
-
-
 
         if mode == 2:
             if "\"aprec\"" in line:
@@ -43,20 +40,11 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
                 mode +=1
                 continue
 
-
-
-
-
         if mode == 3:
             if f"\"crn\": \"{crn}\"" in line:
                 mode +=1
                 continue
 
-
-
-
-
-                
         if mode == 4:
             mode =0
             # some changes had to be done here because python float rounds incorrectly.
@@ -68,7 +56,6 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
             else:
                 print(f"aprec match failed for {cl} with CRN {crn} taught in {yr}!")
                 return False
-
 
     print(f"match failed for {cl} with CRN {crn} taught in {yr}!")
     return False
@@ -100,17 +87,11 @@ def main():
             if not look_for_it(cl,yr,crn,jsf, aprec):
                 wr += 1
             i += 1
-            
 
-
-
-    
     print("\n\n\n------")
     print(f"total entries: {length}")
     print(f"bad matches: {wr}")
     print("------")
-
-
 
 
 if __name__ == "__main__":
