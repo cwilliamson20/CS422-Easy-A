@@ -6,17 +6,11 @@
 import gen_data
 import basicgraph
 
-"""
-TODO: 
-- send course_mode as parameter of basicgraph
-basicgraph(output_dict, course_mode, options_dict)
-"""
 
 def get_graph_data(app, root):
 
     # get the information from the already created UI instance
     options_dict = app.create_dict()
-    print(f"options_dict = {options_dict}")
 
     # Unpacking dictionary values to get graph option values:
 

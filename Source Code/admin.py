@@ -9,13 +9,13 @@ import os
 import shutil
 import webscraper
 
+
 def print_usage():
     print("usage: python3 admin.py [args..]\n")
     print("-V or --verify\t\t\tverifies the current grade database with the gradedata.js provided by the Daily Emerald System.\n")
     print("-W or --webscraper\t\truns the webscraper and generates the regular faculty list needed for some graph generation.\n")
     print("-R or --replace <filename>\treplace the current database with the one provided. A backup of the old database will be made.\n")
     # print(sys.argv)
-
 
 
 def main():
@@ -32,15 +32,11 @@ def main():
                 print("Backing up file data.csv to data.csv.tmp")
                 shutil.copyfile("data.csv", "data.csv.tmp")
 
-
             print(f"Replacing data.csv with file {sys.argv[2]}")
             shutil.copyfile(sys.argv[2], "data.csv")
             print("Creating backup file data.csv.old")
             os.replace("data.csv.tmp","data.csv.old")
             print("Done successfully")
-
-
-
 
 
     elif sys.argv[1] == "--webscraper" or sys.argv[1] == "-W" or sys.argv[1] == "-w":
