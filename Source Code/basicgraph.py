@@ -15,7 +15,7 @@ def basic_graph(output_dict,options_dict):
 
     """
     if not output_dict:
-        print("Error getting graph data!")
+        print("No data in the database fits the given criteria.")
         return
     
     #Sort the data from output_dict in descending order
@@ -36,7 +36,7 @@ def basic_graph(output_dict,options_dict):
     x_data = x_data[-entries:]
     
     #Read labels for graph
-    title = ""  # TODO: fix axis labels and graph title
+    title = "EasyA" 
     
     # determine y label by if its %As or not
     if options_dict["grade_mode"] == 1:

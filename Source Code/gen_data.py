@@ -17,8 +17,8 @@ class Value_Data_Mode(Enum):
     PERC_AS= "aprec"
     # PERC_BS="bprec"
     # PERC_CS="cprec"
-    # PERC_DS="dprec"
-    # PERC_FS="fprec"
+    PERC_DS="dprec"
+    PERC_FS="fprec"
     PERC_D_AND_PERC_F="D/F"
 
 
@@ -71,7 +71,7 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         reg_fac.append(row["NAME"])
         except IOError as e:
             print(f"Faculty list retrieval error. Couldn't read output.csv ({e}). Have you run the webscraper?")
-            print("Proceeding as if all faculty is selected. ")
+
     # print(reg_fac)
     # open file and use python csv import to take care of reading csv file
     with open('data.csv', mode= "r", encoding="utf-8-sig") as csvfile:
@@ -131,7 +131,7 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
 
 
                     
-                    print("storing info on Prof. " + prof +" for course "+row["SUBJ"]+" "+row["NUMB"]+" for "+row["TERM_DESC"])
+                    # print("storing info on Prof. " + prof +" for course "+row["SUBJ"]+" "+row["NUMB"]+" for "+row["TERM_DESC"])
                     # if its not in the dict than put it in
                     if prof not in output_dict:
                         output_dict[prof] = 0.0
@@ -145,7 +145,6 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
     for key in output_dict:
         output_dict[key] = output_dict[key] / ctr_dict[key]
 
-    print(f"output_dict: {output_dict}")
     # if not show nums then just return. we're done
     if not show_nums:
         return output_dict
