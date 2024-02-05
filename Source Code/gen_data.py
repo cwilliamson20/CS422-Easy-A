@@ -89,13 +89,9 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                     elif mode != Course_Data_Mode.DEPARTMENT:
                         continue # neither of the above
 
-                    #meets criteria
-                    if output_mode == "Class":
-                        prof = row["NUMB"]
-                    else:
-                        prof = row["INSTRUCTOR"]
+                    prof = row["INSTRUCTOR"]
 
-                    if output_mode == "Instructor" and reg_fac_only:
+                    if reg_fac_only:
                         # splits  = prof.split()
                         # if splits[0][-1] == ',':
                         #     splits[0] = splits[0][:-1]
@@ -112,6 +108,12 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
 
                         if not b:
                             continue
+
+                        # meets criteria
+                        if output_mode == "Class":
+                            prof = row["NUMB"]
+
+
                     
                     print("storing info on Prof. " + prof +" for course "+row["SUBJ"]+" "+row["NUMB"]+" for "+row["TERM_DESC"])
                     if prof not in output_dict:
