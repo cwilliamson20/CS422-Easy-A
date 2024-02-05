@@ -1,6 +1,8 @@
-# only scrapes data for professors teaching in Natural Sciences
-# Subjects: Biology, Chemistry and Biochemistry, Computer and Information Science, Earth Sciences, General Science,
-# Human Physiology, Mathematics, Neuroscience, Physics, and Psychology
+# This module contains the webscraper to scrape Natural Sciences faculty names from the Wayback Machine
+# Author(s): Angel Soto, Connie Williamson
+# Group 4
+# Created 1/18/2024
+# Date Last Modified: 2/1/2024
 
 import requests   
 from bs4 import BeautifulSoup

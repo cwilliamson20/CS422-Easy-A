@@ -1,12 +1,12 @@
-# Created by Etienne
-# Purpose: verify data.csv data MATCHES data in gradedata.js
-
+# This module verifies that data.csv matches the data in gradedata.js and is a funciton of Administrator Mode
+# Author(s): Etienne Casal-Jouaux, Connie Williamson
+# Group 4
+# Created 1/28/2024
+# Date Last Modified: 2/4/2024
 
 import csv
 import re
 from decimal import *
-
-
 
 #parses the file looking for the specfic class, the year/term it was taught, crn, and aprec in the gradedata.js file
 # compares it to the given. if it matches then our data is accurate
@@ -15,15 +15,12 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
     ap = ""
 
     for line in jsf:
-        # print(line)
         if mode == 0 and line.startswith(f"    \"{cl}\":"):
             mode=1
-            # print(" in subj "+cl)
             continue
 
         if mode != 0 and "]" in line:
             mode =0
-            # print("out subj")
             continue
 
         if mode > 1 and "}" in line:
@@ -41,10 +38,8 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
 
         if mode == 2:
             if "\"aprec\"" in line:
-                # print("pulling aprec data")
                 regexx = re.findall(r"[-+]?[0-9]*\.?[0-9]+", line)
                 ap = regexx[0]
-                #print(aprec)
                 mode +=1
                 continue
 
@@ -53,11 +48,8 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
 
 
         if mode == 3:
-            # print(f"\"crn\": \"{crn}\"")
-            # print(line)
             if f"\"crn\": \"{crn}\"" in line:
                 mode +=1
-                # print("we've found the class")
                 continue
 
 
@@ -72,10 +64,8 @@ def look_for_it(cl, yr, crn, jsf, aprec_in):
             dec = Decimal(ap)
             getcontext().rounding = ROUND_UP
             if round(dec,1).__str__() == ap:
-                # print("DATA MAATCH")
                 return True
             else:
-                # print(f"{round(dec,1).__str__()} is {ap}")
                 print(f"aprec match failed for {cl} with CRN {crn} taught in {yr}!")
                 return False
 

@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+# This module interacts with matplotlib and outputs graphs
+# Author(s): Meagan Beckstrand, Connie Williamson 
+# Group 4
+# Created 1/25/2024
+# Date Last Modified: 2/4/2024
 import matplotlib.pyplot as plt
 
 def basic_graph(output_dict,options_dict):

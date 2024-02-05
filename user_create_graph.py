@@ -1,4 +1,8 @@
-import student_interface
+# This module serves as the connection between student_interface.py -> gen_data.py -> basicgraph.py
+# Author(s): Meagan Beckstrand, Eliza Black, Connie Williamson
+# Group 4
+# Created 1/29/2024
+# Date Last Modified: 2/4/2024
 import gen_data
 import basicgraph
 from tkinter import Tk

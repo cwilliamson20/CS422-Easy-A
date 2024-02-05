@@ -1,5 +1,8 @@
-# Etienne
-
+# This module handles pulling relevant data from data.csv for basicgraph.py to use and display
+# Author(s): Etienne Casal-Jouaux, Connie Williamson
+# Group 4
+# Created 1/23/2024
+# Date Last Modified: 2/4/2024
 import csv
 from enum import Enum
 

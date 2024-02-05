@@ -1,3 +1,8 @@
+# This module resolves discrepancies between the webscraper and updating names as regular faculty
+# Author(s): Etienne Casal-Jouaux, Angel Soto, Connie Williamson
+# Group 4
+# Created 1/28/2024
+# Date Last Modified: 2/4/2024
 import csv
 import os
 import operator
