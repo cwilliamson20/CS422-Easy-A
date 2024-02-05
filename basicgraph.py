@@ -34,8 +34,8 @@ def basic_graph(output_dict,options_dict):
     entries = entries_len
     
     #Get the top 5 data entries by percentage
-    y_data = y_data[:entries]
-    x_data = x_data[:entries]
+    y_data = y_data[-entries:]
+    x_data = x_data[-entries:]
     
     #Read labels for graph
     fig_title = options_dict["course_mode"]  # TODO: fix axis labels and graph title
