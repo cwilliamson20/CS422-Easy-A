@@ -71,7 +71,7 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         reg_fac.append(row["NAME"])
         except IOError as e:
             print(f"Faculty list retrieval error. Couldn't read output.csv ({e}). Have you run the webscraper?")
-            print("Proceeding as if all faculty is selected. ")
+            print("Proceeding as if NO faculty is selected. ")
     # print(reg_fac)
     # open file and use python csv import to take care of reading csv file
     with open('data.csv', mode= "r", encoding="utf-8-sig") as csvfile:
