@@ -1,7 +1,8 @@
-# created by Etienne
-
-
-
+# This is the start file for Administrator Mode
+# Author(s): Etienne Casal-Jouaux, Connie Williamson 
+# Group 4
+# Created 1/31/2024
+# Date Last Modified: 2/4/2024
 import sys
 import verify_data
 import os

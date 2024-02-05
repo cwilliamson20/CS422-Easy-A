@@ -1,3 +1,8 @@
+# This module contains the tkinter UI and methods to kickstart data collection and graph creation when user interacts with the UI
+# Author(s): Eliza Black, Connie Williamson
+# Group 4
+# Created 1/25/2024
+# Date Last Modified: 2/4/2024
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
