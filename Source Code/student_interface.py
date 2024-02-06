@@ -1,5 +1,5 @@
 # This module contains the tkinter UI and methods to kickstart data collection and graph creation when user interacts with the UI
-# Author(s): Eliza Black, Connie Williamson
+# Author(s): Eliza Black, Connie Williamson, Etienne Casal-Jouaux
 # Group 4
 # Created 1/25/2024
 # Date Last Modified: 2/4/2024
@@ -76,13 +76,13 @@ Source: https://emeraldmediagroup.github.io/grade-data/
         self.var = IntVar()
         self.R1 = Radiobutton(self.user_frame, text="Single Class", variable=self.var, value=1)
         self.R1.grid(row=2, column=0, sticky=W, padx=(0, 20))
-        self.R2 = Radiobutton(self.user_frame, text="Single Department", variable=self.var, value=2)
+        self.R2 = Radiobutton(self.user_frame, text="Whole Department", variable=self.var, value=2)
         self.R2.grid(row=3, column=0, sticky=W, padx=(0, 20))
-        self.R3 = Radiobutton(self.user_frame, text="Single Department Level", variable=self.var, value=3)
+        self.R3 = Radiobutton(self.user_frame, text="Single Course Level", variable=self.var, value=3)
         self.R3.grid(row=4, column=0, sticky=W, padx=(0, 20))
 
         # Department Level drop-down list
-        Label(self.user_frame, text="Department Level:").grid(row=5, column=0, sticky=W, pady=(10, 0))
+        Label(self.user_frame, text="Course Level:").grid(row=5, column=0, sticky=W, pady=(10, 0))
         self.class_level_box = ttk.Combobox(
             self.user_frame,
             state="readonly",
