@@ -5,6 +5,7 @@
 # Date Last Modified: 2/4/2024
 import csv
 from enum import Enum
+import student_interface
 
 # see gen_data documentation
 class Course_Data_Mode(Enum):
@@ -71,6 +72,7 @@ def gen_data(subject: str, course: int, mode: Course_Data_Mode, year: str, value
                         reg_fac.append(row["NAME"])
         except IOError as e:
             print(f"Faculty list retrieval error. Couldn't read output.csv ({e}). Have you run the webscraper?")
+            student_interface.show_popup(f"Faculty list retrieval error. Couldn't read output.csv ({e}). Have you run the webscraper?")
 
     # print(reg_fac)
     # open file and use python csv import to take care of reading csv file

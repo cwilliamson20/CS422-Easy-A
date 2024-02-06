@@ -4,6 +4,8 @@
 # Created 1/25/2024
 # Date Last Modified: 2/4/2024
 import matplotlib.pyplot as plt
+import student_interface
+
 
 def basic_graph(output_dict,options_dict):
     """
@@ -12,10 +14,11 @@ def basic_graph(output_dict,options_dict):
     Args:
         output_dict (dict): The dictionary containing the grade data, including professor name or class number, and grade the percentage. 
         options_dict (dict): The dictionary containing the selections of the user, used for labeling the graph
-
     """
     if not output_dict:
         print("No data in the database fits the given criteria.")
+        student_interface.show_popup("No data in the database fits the given criteria.")
+
         return
     
     #Sort the data from output_dict in descending order

@@ -10,7 +10,7 @@ import shutil
 import webscraper
 
 
-#print the help screen. pretty self-explanatory
+# print the help screen. pretty self-explanatory
 def print_usage():
     print("usage: python3 admin.py [args..]\n")
     print("-V or --verify\t\t\tverifies the current grade database with the gradedata.js provided by the Daily Emerald System.\n")

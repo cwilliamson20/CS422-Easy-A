@@ -5,8 +5,8 @@
 # Date Last Modified: 2/4/2024
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import user_create_graph
-
 
 class EasyAUserInterface:
     def __init__(self, root):
@@ -27,8 +27,8 @@ class EasyAUserInterface:
         # Show home page initially
         self.show_home_page()
 
+    # Creates the home page with welcome message and program info
     def create_home_page(self):
-        # Create the home page with welcome message and program info
         Label(self.home_frame, text="Welcome to EasyA!").pack()
         Button(self.home_frame, text="Student Mode", command=self.show_user_page).pack()
         default_data_info_string = """The data for EasyA was copied directly from https://emeraldmediagroup.github.io/grade-data/ on 01-16-2024.
@@ -63,6 +63,8 @@ Source: https://emeraldmediagroup.github.io/grade-data/
 """    
         Label(self.home_frame, text=default_data_info_string).pack()
 
+    # This method creates the user page of the EasyA program. It builds a two-column layout
+    # comprised of radio buttons, text boxes, drop-down menus, and an enter button.
     def create_user_page(self):
 
         # ------------------------------------------------------------------------------
@@ -165,10 +167,13 @@ Source: https://emeraldmediagroup.github.io/grade-data/
         self.year_box.set("All")  # Set default value for year
         self.subject_box.set("BI")  # Set default value for subject codes
 
+    #  Triggers the chain of graph creation events in user_create_graph.py when “Enter” is clicked.
     def enter_graph(self):
         # Trigger the graph creation using data from the UI
         user_create_graph.get_graph_data(app, root)
 
+    # Organizes user-selected data preferences from the UI so that they can be sent together
+    # to user_create_graph and used to sort and find the user-requested data.
     def create_dict(self):
         # Retrieve selected values from radio buttons, check buttons, and comboboxes
 
@@ -195,17 +200,33 @@ Source: https://emeraldmediagroup.github.io/grade-data/
 
         return data_dict
 
+    # This method hides other frames and displays the home page by packing the home frame.
+    # It ensures that only the relevant components for the home page are visible.
     def show_home_page(self):
         self.hide_frames()
         self.home_frame.pack()
 
+    # This method hides other frames and displays the user page by packing the user frame.
+    # It ensures that only the relevant components for the user page are visible.
     def show_user_page(self):
         self.hide_frames()
         self.user_frame.pack()
 
+    # This method hides both home and user frames.
+    # It is used to clear the display before showing a new page.
     def hide_frames(self):
         self.home_frame.pack_forget()
         self.user_frame.pack_forget()
+
+
+# Function to display pop-up message
+# Purpose: display error messages & assist the user
+# Defined outside the class so it can be easily accessed by eternal files
+def show_popup(message):
+    popup_root = Tk()
+    popup_root.withdraw()  # Hide the main window
+    messagebox.showinfo("Popup Message", message)  # Display Tkinter pop-up
+
 
 if __name__ == "__main__":
     root = Tk()
