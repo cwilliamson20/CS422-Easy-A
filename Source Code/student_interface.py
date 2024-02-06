@@ -224,8 +224,7 @@ Source: https://emeraldmediagroup.github.io/grade-data/
 # Defined outside the class so it can be easily accessed by eternal files
 def show_popup(message):
     popup_root = Tk()
-    popup_root.withdraw()  # Hide the main window
-    messagebox.showinfo("Popup Message", message)  # Display Tkinter pop-up
+    messagebox.showinfo("Popup Message", message)  # Display pop-up window
 
 
 if __name__ == "__main__":
